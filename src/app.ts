@@ -2,28 +2,26 @@ import {
   createServer,
   httpListener,
   r,
-  HttpStatus,
 } from '@marblejs/core'
-import { cors$ } from '@marblejs/middleware-cors'
 import { logger$ } from '@marblejs/middleware-logger'
 import { bodyParser$ } from '@marblejs/middleware-body'
 import { XMLHttpRequest } from 'xmlhttprequest'
 
 import {
   map,
-  tap,
   switchMap,
+  catchError,
 } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
+import {of} from 'rxjs';
 
 const createXHR = () => new XMLHttpRequest()
 
 const getPosts = ajax({
   createXHR,
-  url: 'https://jsonplaceholder.typicode.com/posts'
+  url: 'http://www.mocky.io/v2/5cf81c3330000059a0a38118'
 }).pipe(
-  tap(console.log),
-  map(resp => resp.response),
+  map(resp => resp.response)
 )
 
 export const api$ = r.pipe(
@@ -31,10 +29,10 @@ export const api$ = r.pipe(
   r.matchType('GET'),
   r.useEffect(req$ => req$.pipe(
     switchMap(() => getPosts),
-    tap(console.log),
-    map(test => ({
-      body: test
+    map((posts) => ({
+      body: posts
     })),
+    catchError(err => of(err)),
   ))
 )
 
