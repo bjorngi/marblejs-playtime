@@ -1,0 +1,26 @@
+{
+  "name": "marble",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Bjørn Gilstad <marble@gilstad.no>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "prod": "tsc && node ./build/app.js"
+  },
+  "dependencies": {
+    "@marblejs/core": "^2.2.2",
+    "@marblejs/middleware-body": "^2.2.2",
+    "@marblejs/middleware-cors": "^2.2.2",
+    "@marblejs/middleware-logger": "^2.2.2",
+    "eventstore": "^1.14.4",
+    "marblejs": "^0.1.4",
+    "node-eventstore-client": "^0.2.11",
+    "rxjs": "^6.5.2",
+    "typescript": "^3.5.1",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^1.0.0-pre.39"
+  }
+}
